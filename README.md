@@ -1,4 +1,4 @@
-<img src="./point-transformer-layer.png" width="500px"></img>
+<img src="./point-transformer-layer.png" width="300px"></img>
 
 ## Point Transformer - Pytorch (wip)
 
