@@ -1,6 +1,6 @@
 ## Point Transformer - Pytorch (wip)
 
-Implementation of the Point Transformer self-attention layer, in Pytorch
+Implementation of the <a href="https://arxiv.org/abs/2012.09164">Point Transformer</a> self-attention layer, in Pytorch
 
 ## Citations
 
