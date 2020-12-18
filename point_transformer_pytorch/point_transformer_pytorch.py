@@ -1,16 +1,5 @@
-import torch
-import torch.nn.functional as F
 from torch import nn, einsum
-
-from einops import rearrange, repeat
-
-# helpers
-
-def exists(val):
-    return val is not None
-
-def default(val, d):
-    return val if exists(val) else d
+from einops import repeat
 
 # classes
 
