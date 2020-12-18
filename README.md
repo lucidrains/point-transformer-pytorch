@@ -16,14 +16,14 @@ $ pip install point-transformer-pytorch
 import torch
 from point_transformer_pytorch import PointTransformerLayer
 
-x = torch.randn(1, 16, 128)
-pos = torch.randn(1, 16, 3)
-
 attn = PointTransformerLayer(
     dim = 128,
     pos_mlp_hidden_dim = 64,
     attn_mlp_hidden_mult = 4
 )
+
+x = torch.randn(1, 16, 128)
+pos = torch.randn(1, 16, 3)
 
 attn(x, pos) # (1, 16, 128)
 ```
