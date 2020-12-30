@@ -1,6 +1,6 @@
 <img src="./point-transformer-layer.png" width="300px"></img>
 
-## Point Transformer - Pytorch (wip)
+## Point Transformer - Pytorch
 
 Implementation of the <a href="https://arxiv.org/abs/2012.09164">Point Transformer</a> self-attention layer, in Pytorch. The simple circuit above seemed to have allowed their group to outperform all previous methods in point cloud classification and segmentation.
 
