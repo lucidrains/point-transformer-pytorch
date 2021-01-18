@@ -23,7 +23,7 @@ class PointTransformerLayer(nn.Module):
         self.attn_mlp = nn.Sequential(
             nn.Linear(dim, dim * attn_mlp_hidden_mult),
             nn.ReLU(),
-            nn.Linear(dim * attn_mlp_hidden_mult, 1),
+            nn.Linear(dim * attn_mlp_hidden_mult, dim),
         )
 
     def forward(self, x, pos):
@@ -47,8 +47,8 @@ class PointTransformerLayer(nn.Module):
         v = v + rel_pos_emb
 
         # attention
-        attn = sim.softmax(dim = -1)
+        attn = sim.softmax(dim = -2)
 
         # aggregate
-        agg = einsum('b i j, b i j d -> b i d', attn, v)
+        agg = einsum('b i j d, b i j d -> b i d', attn, v)
         return agg
