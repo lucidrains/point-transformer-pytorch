@@ -89,7 +89,7 @@ class PointTransformerLayer(nn.Module):
             rel_pos_emb = batched_index_select(rel_pos_emb, indices, dim = 2)
             mask = batched_index_select(mask, indices, dim = 2) if exists(mask) else None
 
-        # expand transformed features and add relative positional embeddings
+        # add relative positional embeddings to value
         v = v + rel_pos_emb
 
         # use attention mlp, making sure to add relative positional embedding first
