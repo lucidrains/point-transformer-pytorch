@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
   name = 'point-transformer-pytorch',
   packages = find_packages(),
-  version = '0.0.3',
+  version = '0.1.0',
   license='MIT',
   description = 'Point Transformer - Pytorch',
   author = 'Phil Wang',
