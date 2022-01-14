@@ -1,1 +1,2 @@
 from point_transformer_pytorch.point_transformer_pytorch import PointTransformerLayer
+from point_transformer_pytorch.multihead_point_transformer_pytorch import MultiheadPointTransformerLayer
