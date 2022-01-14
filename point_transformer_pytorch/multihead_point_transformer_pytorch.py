@@ -89,7 +89,7 @@ class MultiheadPointTransformerLayer(nn.Module):
         # prepare mask
 
         if exists(mask):
-            mask = rearrange(mask, 'b i -> b 1 i 1') * rearrange(mask, 'b j -> b 1 1 j')
+            mask = rearrange(mask, 'b i -> b i 1') * rearrange(mask, 'b j -> b 1 j')
 
         # expand values
 
@@ -106,10 +106,14 @@ class MultiheadPointTransformerLayer(nn.Module):
 
             dist, indices = rel_dist.topk(num_neighbors, largest = False)
 
-            v = batched_index_select(v, indices, dim = 2)
-            qk_rel = batched_index_select(qk_rel, indices, dim = 2)
-            rel_pos_emb = batched_index_select(rel_pos_emb, indices, dim = 2)
-            mask = batched_index_select(mask, indices, dim = 2) if exists(mask) else None
+            indices_with_heads = repeat(indices, 'b i j -> b h i j', h = h)
+
+            v = batched_index_select(v, indices_with_heads, dim = 3)
+            qk_rel = batched_index_select(qk_rel, indices_with_heads, dim = 3)
+            rel_pos_emb = batched_index_select(rel_pos_emb, indices_with_heads, dim = 3)
+
+            if exists(mask):
+                mask = batched_index_select(mask, indices, dim = 2)
 
         # add relative positional embeddings to value
 
@@ -126,6 +130,7 @@ class MultiheadPointTransformerLayer(nn.Module):
 
         if exists(mask):
             mask_value = -max_value(sim)
+            mask = rearrange(mask, 'b i j -> b 1 i j')
             sim.masked_fill_(~mask, mask_value)
 
         # attention
