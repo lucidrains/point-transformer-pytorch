@@ -57,9 +57,9 @@ class MultiheadPointTransformerLayer(nn.Module):
         attn_inner_dim = inner_dim * attn_mlp_hidden_mult
 
         self.attn_mlp = nn.Sequential(
-            nn.Conv2d(inner_dim, attn_inner_dim, 1),
+            nn.Conv2d(inner_dim, attn_inner_dim, 1, groups = heads),
             nn.ReLU(),
-            nn.Conv2d(attn_inner_dim, heads, 1),
+            nn.Conv2d(attn_inner_dim, heads, 1, groups = heads),
         )
 
     def forward(self, x, pos, mask = None):
