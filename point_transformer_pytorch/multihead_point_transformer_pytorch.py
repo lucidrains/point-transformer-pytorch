@@ -59,7 +59,7 @@ class MultiheadPointTransformerLayer(nn.Module):
         self.attn_mlp = nn.Sequential(
             nn.Conv2d(inner_dim, attn_inner_dim, 1, groups = heads),
             nn.ReLU(),
-            nn.Conv2d(attn_inner_dim, heads, 1, groups = heads),
+            nn.Conv2d(attn_inner_dim, inner_dim, 1, groups = heads),
         )
 
     def forward(self, x, pos, mask = None):
@@ -139,8 +139,8 @@ class MultiheadPointTransformerLayer(nn.Module):
 
         # aggregate
 
-        agg = einsum('b h i j, b h i j d -> b h i d', attn, v)
-        agg = rearrange(agg, 'b h n d -> b n (h d)')
+        v = rearrange(v, 'b h i j d -> b i j (h d)')
+        agg = einsum('b d i j, b i j d -> b i d', attn, v)
 
         # combine heads
 
